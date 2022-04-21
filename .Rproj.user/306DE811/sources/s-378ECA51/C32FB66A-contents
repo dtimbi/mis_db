@@ -1,0 +1,40 @@
+---
+title: "MIS Dashboard 2022"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+source("script/data_download.R")
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Last Submission Date {.value-box}
+
+```{r}
+valueBox(value = max(clean$SubmissionDate), 
+         caption = "Date of last submission", 
+         icon = "fas fa-calendar", 
+         color = "red")
+```
+
+Column {data-width=250}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+
