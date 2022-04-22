@@ -54,14 +54,18 @@ prev %>%
 
 
 clean <- prev %>%
-  select(SubmissionDate, date) %>% 
+  select(SubmissionDate, date, int_name, p_id) %>% 
   mutate(SubmissionDate = lubridate::ymd_hms
          (SubmissionDate), 
          SubmissionDate = as.Date(SubmissionDate),
          date = lubridate::ymd
          (date), 
-         date = as.Date(date))
+         date = as.Date(date), 
+         p_id = case_when(
+           p_id == 3 ~ "Central", 
+           p_id == 5 ~ "Milne Bay",
+           p_id == 6 ~ "Oro",
+           TRUE ~ "Other"
+         ))
 
 ##library(flexdashboard)
-
-clean

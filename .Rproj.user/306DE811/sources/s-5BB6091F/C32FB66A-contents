@@ -23,13 +23,25 @@ valueBox(value = max(clean$SubmissionDate),
          color = "red")
 ```
 
-Column {data-width=250}
------------------------------------------------------------------------
-
-### Chart B
+### Last Interview Date {.value-box}
 
 ```{r}
+valueBox(value = max(clean$date), 
+         caption = "Date of last interview", 
+         icon = "fas fa-calendar", 
+         color = "blue")
+```
 
+Column {data-width=950}
+-----------------------------------------------------------------------
+
+### Tabulation by Province
+
+```{r}
+clean %>% 
+  ggplot(aes(x = p_id, fill = p_id)) + 
+  geom_bar() + 
+  theme_classic()
 ```
 
 ### Chart C

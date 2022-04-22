@@ -1,0 +1,25 @@
+name: Render site
+
+on:
+  schedule:
+  - cron: "0 0 * * *" # at the end of everyday
+  push:
+    branches: [ main ]
+    
+jobs:
+  build:
+    name: render dashboard site
+    runs-on: ubuntu-18.04 
+    container: 
+     image: myominnoo/dashboard:malcon0.3
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with: 
+          ref: 'main'
+      - name: Render scripts and build site
+        run: |
+            bash ./scripts/automation.sh "main" "$ODK_UN" "$ODK_PW"
+        env:     
+          ODK_UN: ${{ secrets.ODK_UN }} 
+          ODK_PW: ${{ secrets.ODK_PW }} 

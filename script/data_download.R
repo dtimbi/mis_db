@@ -6,9 +6,9 @@ url <- "https://odk-central.swisstph.ch/v1/projects/17/forms/prev_v1.svc"
 
 form_id <- "prev_v1"
 
-un <- "myo.minnoo@swisstph.ch"
+un <- Sys.getenv("ODK_UN")
 
-pw <- "malcon@2022!"
+pw <- Sys.getenv("ODK_PW")
 
 ruODK::ru_setup(
   svc = url,
@@ -54,14 +54,18 @@ prev %>%
 
 
 clean <- prev %>%
-  select(SubmissionDate, date) %>% 
+  select(SubmissionDate, date, int_name, p_id) %>% 
   mutate(SubmissionDate = lubridate::ymd_hms
          (SubmissionDate), 
          SubmissionDate = as.Date(SubmissionDate),
          date = lubridate::ymd
          (date), 
-         date = as.Date(date))
+         date = as.Date(date), 
+         p_id = case_when(
+           p_id == 3 ~ "Central", 
+           p_id == 5 ~ "Milne Bay",
+           p_id == 6 ~ "Oro",
+           TRUE ~ "Other"
+         ))
 
 ##library(flexdashboard)
-
-clean
